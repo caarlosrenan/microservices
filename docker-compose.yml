@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  order:
+    image: postgres/order-service:latest
+    container_name: order
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/order_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres_order
+    networks:
+      - app-network
+
+  stock:
+    image: postgres/stock-service:latest
+    container_name: stock
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/stock_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8083:8080"
+    depends_on:
+      - postgres_stock
+    networks:
+      - app-network
+
+  customer:
+    image: postgres/customer-service:latest
+    container_name: customer
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres_customer
+    networks:
+      - app-network
+
+  postgres_order:
+    image: postgres:13
+    container_name: postgres_order
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: order_db
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  postgres_stock:
+    image: postgres:13
+    container_name: postgres_stock
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: stock_db
+    volumes:
+      - postgres_stock_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  postgres_customer:
+    image: postgres:13
+    container_name: postgres_customer
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: customer_db
+    volumes:
+      - postgres_customer_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_order_data:
+  postgres_stock_data:
+  postgres_customer_data:
