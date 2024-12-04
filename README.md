@@ -68,7 +68,7 @@ Para rodar os microserviços localmente, você pode utilizar o Docker Compose, q
 
 ## Evidência AWS
 
-Você pode ver a demonstração do deploy feito no EC2 no seguinte [link do vídeo](https://youtu.be/0vW-hgCiiVQ).
+Você pode ver a demonstração do deploy feito no EC2 no seguinte [link](https://youtu.be/0vW-hgCiiVQ).
 
 
 ## Endpoints
