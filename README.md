@@ -66,6 +66,10 @@ Para rodar os microserviços localmente, você pode utilizar o Docker Compose, q
 - `stock/`: Código do microserviço de gerenciamento de estoque.
 - `docker-compose.yml`: Arquivo de configuração do Docker para rodar os microserviços e o banco de dados.
 
+## Evidência AWS
+
+Você pode ver a demonstração do deploy feito no EC2 no seguinte [link do vídeo](https://youtu.be/0vW-hgCiiVQ).
+
 
 ## Endpoints
 
