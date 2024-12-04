@@ -1,0 +1,33 @@
+services:
+  customer-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://customer-db:5432/customer_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - customer-network
+
+  customer-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: customer_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - customer-data:/var/lib/postgresql/data
+    networks:
+      - customer-network
+
+networks:
+  customer-network:
+
+volumes:
+  customer-data:

@@ -1,0 +1,33 @@
+services:
+  stock-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://stock-db:5432/stock_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - stock-network
+
+  stock-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stock_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - stock-data:/var/lib/postgresql/data
+    networks:
+      - stock-network
+
+networks:
+  stock-network:
+
+volumes:
+  stock-data:
